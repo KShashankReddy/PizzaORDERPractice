@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Online Pizza Delivery System</title>
+</h:head>
+<body>
+	<table width="100%">
+		<tr>
+			<TD width="70%"><div id="header" style="width: 50%">
+					<h:graphicImage name="/images/logo.png" width="70" height="50"
+						style="float:left;margin-right: 15px;"
+						onclick="window.location='/PDS'" />
+					<h1 style="margin-top: 5px; margin-left: 5px;">Online Pizza
+						Ordering System</h1>
+				</div></TD>
+			<TD width="30%" align="right"><table>
+					<tr>
+						<td align="right"><h:panelGroup
+								rendered="#{login.user.role !=2}">
+								<p:graphicImage name="/images/cart.png" width="30" height="30"
+									onclick="cartDlg.show()" />
+								&nsbp;
+								<h3 style="margin-top: -30px; margin-right: -15px;">#{home.pizzasAdded.size()}</h3>
+							</h:panelGroup></td>
+
+					</tr>
+					<tr>
+						<td><div align="right">Welcome
+								#{(login.loginSucces==false)?'Guest!':login.user.name}</div></td>
+						<td><p:commandButton value="Login" onclick="loginDlg.show();"
+								rendered="#{!login.loginSucces}" /> <p:commandButton
+								action="#{login.logout}" value="Logout" immediate="true"
+								rendered="#{login.loginSucces}" /></td>
+					</tr>
+				</table></TD>
+		</tr>
+	</table>
+
+	<h:form>
+		<div align="right">
+			<p:commandButton id="dynaButton" value="Menu" type="button"
+				icon="ui-icon-extlink" rendered="#{login.user.role ==2}" />
+		</div>
+		<p:menu overlay="true" trigger="dynaButton" my="left top"
+			at="left bottom">
+			<p:menuitem value="Dashboard" action="dashboard" icon="ui-icon-home" />
+			<p:submenu label="Pizza Menu">
+				<p:menuitem value="Add Pizza" icon="ui-icon-add" action="addPizza" />
+				<p:menuitem value="Remove Pizza" icon="ui-icon-close"
+					action="addPizza" />
+			</p:submenu>
+
+			<p:submenu label="Stores">
+				<p:menuitem value="Add Store" icon="ui-icon-add"
+					action="addLocation" />
+				<p:menuitem value="Remove Store" icon="ui-icon-close"
+					action="addLocation" />
+			</p:submenu>
+		</p:menu>
+	</h:form>
+	<p:growl autoUpdate="true" escape="true"></p:growl>
+
+	<p:dialog widgetVar="cartDlg" dynamic="true"
+		header="Pizza's in your cart">
+		<p:dataTable value="#{home.pizzasAdded}" var="pizza">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Pizza Name"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{pizza.itemName}"></h:outputText>
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Qty"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{pizza.qty}"></h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Type"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{(pizza.type==1)?'Small':''}"></h:outputText>
+				<h:outputText value="#{(pizza.type==2)?'Medium':''}"></h:outputText>
+				<h:outputText value="#{(pizza.type==3)?'Large':''}"></h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Price"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{pizza.price*pizza.type}"></h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Remove"></h:outputText>
+				</f:facet>
+				<p:commandButton actionListener="#{home.removePizzas}"
+					icon="ui-icon-close"></p:commandButton>
+			</p:column>
+		</p:dataTable>
+		<h1>Total $#{home.totalCost}</h1>
+		<div align="center" style="margin-top: 5px">
+			<p:commandButton action="#{home.buyPizzas}" value="Buy"
+				icon="ui-icon-cart"></p:commandButton>
+		</div>
+
+	</p:dialog>
+
+	<p:dialog widgetVar="loginDlg">
+		<h:form>
+			<table>
+				<tr>
+					<td width="25%"><h:outputText value="Username"></h:outputText></td>
+					<td><p:inputText value="#{login.user.username}" /></td>
+				</tr>
+				<tr>
+					<td width="25%"><h:outputText value="Password"></h:outputText></td>
+					<td><p:password value="#{login.user.password}" /></td>
+				</tr>
+				<tr>
+					<td width="25%"></td>
+					<td><p:commandButton value="Login" action="#{login.loginUser}"
+							process="@all" /> <p:commandLink value="New User? Sign up!"
+							onclick="regDlg.show();" /></td>
+				</tr>
+			</table>
+		</h:form>
+	</p:dialog>
+
+	<p:dialog header="New Customer Registration" widgetVar="regDlg">
+		<h:form>
+			<table style="margin-top: 10px">
+				<tr>
+					<td>Name</td>
+					<td><p:inputText value="#{login.customer.name}" /></td>
+				</tr>
+				<tr>
+					<td>Username</td>
+					<td><p:inputText value="#{login.customer.username}" /></td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td><p:password value="#{login.customer.password}" /></td>
+				</tr>
+				<tr>
+					<td>Email</td>
+					<td><p:inputText value="#{login.customer.emailId}" /></td>
+				</tr>
+				<tr>
+					<td>Phone Number</td>
+					<td><p:inputText value="#{login.customer.phoneNum}" /></td>
+				</tr>
+				<tr>
+					<td>Address</td>
+					<td><p:inputTextarea rows="3"
+							value="#{login.customer.address}"></p:inputTextarea></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><p:commandButton value="Sign up!"
+							actionListener="#{login.register}" oncomplete="regDlg.hide()" /></td>
+				</tr>
+			</table>
+		</h:form>
+	</p:dialog>
+
+
+</body>
+</html>

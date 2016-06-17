@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Order Confirmation</title>
+</h:head>
+<h:body>
+	<h3></h3>
+	<ui:composition template="defaultLayout.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<div style="width: 100%">
+
+
+					<h:panelGroup layout="block" style="text-align:center"
+						rendered="#{home.paymentSuccess}" id="orderConfirm">
+
+						<h3>Thanks for your booking!</h3>
+						<p>Your order has been placed and your pizza will be soon
+							delivered at your door step.</p>
+						<p:commandButton value="Continue Order" action="home">
+						</p:commandButton>
+					</h:panelGroup>
+					<h:panelGroup layout="block" rendered="#{!home.paymentSuccess}">
+						<p:panel header="PaymentDetails">
+							<h:outputText value="Please enter your payment details"></h:outputText>
+
+							<table style="margin-top: 10px">
+								<tr>
+									<td><p:outputLabel value="Card Number" for="cNum"></p:outputLabel></td>
+									<td><p:inputText required="true" id="cNum" /></td>
+								</tr>
+								<tr>
+									<td><p:outputLabel value="Expiry Date" for="eDate"></p:outputLabel></td>
+									<td><p:inputText required="true" id="eDate"
+											style="width:65px" /> <p:inputText style="width:65px"
+											required="true" /></td>
+								</tr>
+								<tr>
+									<td><p:outputLabel value="Security Code" for="sCode"></p:outputLabel></td>
+									<td><p:inputText required="true" id="sCode"
+											style="width:65px" /></td>
+								</tr>
+
+
+								<tr>
+									<td></td>
+									<td><p:commandButton value="Pay"
+											actionListener="#{home.doPayment}" process="@form" update="@form" /></td>
+								</tr>
+							</table>
+						</p:panel>
+					</h:panelGroup>
+				</div>
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>

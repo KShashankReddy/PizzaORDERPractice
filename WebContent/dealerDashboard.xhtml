@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Dealer Dashboard</title>
+</h:head>
+<h:body>
+	<h3></h3>
+	<ui:composition template="defaultLayout.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<h1 style="text-align: left; margin-left: 15px;">Dealer
+					Dashboard</h1>
+
+				<div style="width: 98%; margin-left: 15px;">
+					<h:panelGroup style="width:50%;display:inline-block;"
+						layout="block">
+						<h3>Pending Orders</h3>
+						<p:dataTable value="#{pizzaMaker.pizzasOrdered}" var="pizza"
+							style="background-color:gold;border-radius:5px;" paginator="true">
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Pizza Name"></h:outputText>
+								</f:facet>
+								<h:outputText value="#{pizza.itemName}"></h:outputText>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Qty"></h:outputText>
+								</f:facet>
+								<h:outputText value="#{pizza.qty}"></h:outputText>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Type"></h:outputText>
+								</f:facet>
+								<h:outputText value="#{(pizza.type==1)?'Small':''}"></h:outputText>
+								<h:outputText value="#{(pizza.type==2)?'Medium':''}"></h:outputText>
+								<h:outputText value="#{(pizza.type==3)?'Large':''}"></h:outputText>
+							</p:column>
+
+
+						</p:dataTable>
+
+					</h:panelGroup>
+					<h:panelGroup style="width:50%;display:inline-block" layout="block">
+						<h3>Delivered Orders</h3>
+						<p:dataTable value="#{pizzaMaker.pizzasDelivered}" var="pizza"
+							style="background-color:aquamarine;border-radius:5px;" paginator="true">
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Pizza Name"></h:outputText>
+								</f:facet>
+								<h:outputText value="#{pizza.itemName}"></h:outputText>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Qty"></h:outputText>
+								</f:facet>
+								<h:outputText value="#{pizza.qty}"></h:outputText>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Type"></h:outputText>
+								</f:facet>
+								<h:outputText value="#{(pizza.type==1)?'Small':''}"></h:outputText>
+								<h:outputText value="#{(pizza.type==2)?'Medium':''}"></h:outputText>
+								<h:outputText value="#{(pizza.type==3)?'Large':''}"></h:outputText>
+							</p:column>
+
+
+						</p:dataTable>
+
+					</h:panelGroup>
+				</div>
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Online Pizza Delivery System</title>
+</h:head>
+<h:body>
+	<h3></h3>
+	<ui:composition template="defaultLayout.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<div style="width: 100%; margin: 5px;">
+					<p:commandButton value="New Pizza" onclick="createPizzaDlg.show()"
+						actionListener="#a{pizzaMaker.addNewPizza}"></p:commandButton>
+					<p:dataTable value="#{pizzaMaker.pizzasMenu}" var="pizza"
+						style="border-radius:5px;background-color:white;" paginator="true">
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Pizza Name"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{pizza.itemName}"></h:outputText>
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Qty"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{pizza.qty}"></h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Type"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{(pizza.type==1)?'Small':''}"></h:outputText>
+							<h:outputText value="#{(pizza.type==2)?'Medium':''}"></h:outputText>
+							<h:outputText value="#{(pizza.type==3)?'Large':''}"></h:outputText>
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Price"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{pizza.price}"></h:outputText>
+						</p:column>
+						<p:column>
+							<p:commandButton icon="ui-icon-search" title="View"
+								update="@form" oncomplete="selectedPizzaDlg.show()">
+								<f:setPropertyActionListener value="#{pizza}"
+									target="#{pizzaMaker.selectedPizza}" />
+							</p:commandButton>
+							<p:commandButton icon="ui-icon-close" title="Remove"
+								update="@form">
+								<f:setPropertyActionListener value="#{pizza}"
+									target="#{pizzaMaker.selectedPizza}" />
+							</p:commandButton>
+						</p:column>
+
+					</p:dataTable>
+					<p:dialog dynamic="true" widgetVar="selectedPizzaDlg">
+						<table>
+							<tr>
+								<td align="center"><h1>#{pizzaMaker.selectedPizza.itemName}</h1></td>
+							</tr>
+							<tr>
+								<td><p:graphicImage name="/images/pizza1.png" width="400"
+										height="400" /></td>
+							</tr>
+							<tr>
+								<td align="center"><h1>$#{pizzaMaker.selectedPizza.price}</h1></td>
+							</tr>
+						</table>
+					</p:dialog>
+
+					<p:dialog dynamic="true" widgetVar="createPizzaDlg"
+						header="Add Pizza">
+						<table>
+							<tr>
+								<td><h:outputLabel value="Pizza Name" for="pName" /></td>
+								<td><p:inputText id="pName"
+										value="#{pizzaMaker.selectedPizza.itemName}" /></td>
+							</tr>
+							<tr>
+								<td><h:outputLabel value="Price" for="price" /></td>
+								<td><p:inputText id="price"
+										value="#{pizzaMaker.selectedPizza.price}" /></td>
+							</tr>
+							<tr>
+								<td><h:outputLabel value="Description" for="pDesc" /></td>
+								<td><p:inputText id="pDesc"
+										value="#{pizzaMaker.selectedPizza.itemDesc}" /></td>
+							</tr>
+							<tr>
+								<td><p:commandButton value="Add"
+										actionListener="#{pizzaMaker.addPizza}" /></td>
+								<td></td>
+							</tr>
+						</table>
+					</p:dialog>
+
+				</div>
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>

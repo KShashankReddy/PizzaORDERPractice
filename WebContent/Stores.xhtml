@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Online Pizza Delivery System</title>
+</h:head>
+<h:body>
+	<h3></h3>
+	<ui:composition template="defaultLayout.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<div style="width: 100%; margin: 5px;">
+					<p:commandButton value="New Store"
+						actionListener="#{pizzaMaker.addNewLocation}" onclick="createStoreDlg.show()"></p:commandButton>
+					<p:dataTable value="#{pizzaMaker.stores}" var="location"
+						style="border-radius:5px;background-color:white;" paginator="true">
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Location"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{location.locationName}"></h:outputText>
+						</p:column>
+						<p:column>
+							<p:commandButton icon="ui-icon-close" title="Remove"
+								update="@form" actionListener="#{pizzaMaker.removeLocation}">
+								<f:setPropertyActionListener value="#{pizza}"
+									target="#{pizzaMaker.selectedPizza}" />
+							</p:commandButton>
+						</p:column>
+
+					</p:dataTable>
+
+				</div>
+
+				<p:dialog dynamic="true" widgetVar="createStoreDlg" header="Add Store">
+					<table>
+						<tr>
+							<td><h:outputLabel value="Store Name" for="sName" /></td>
+							<td><p:inputText id="sName"
+									value="#{pizzaMaker.selectedLocation.locationName}" /></td>
+						</tr>
+						<tr>
+							<td><p:commandButton value="Add"
+									actionListener="#{pizzaMaker.addLocation}" /></td>
+							<td></td>
+						</tr>
+					</table>
+				</p:dialog>
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>

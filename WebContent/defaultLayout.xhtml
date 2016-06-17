@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Online Pizza Ordering System</title>
+
+	<style>
+.bg {
+	background-image: url("bg.jpg");
+	background-size: cover;
+	width: 100%;
+	height: 500px;
+	opacity: 0.2;
+	filter: alpha(opacity = 60);
+}
+
+.ui-menu.ui-menu-dynamic {
+	position: absolute;
+	display: none;
+	z-index: 100000;
+	background-color: white !important;
+}
+
+.ui-widget {
+	font-family: calibri, Tahoma, Geneva, sans-serif !important;
+	font-size: 13px !important;
+}
+
+.ui-widget-content {
+	border: 1px solid #a8a8a8;
+	background: transparent !important;
+	color: #4f4f4f;
+}
+
+#container {
+	width: 100%;
+	height: 700px;
+	position: relative;
+}
+
+.ui-dialog-content {
+	background-color: white !important;
+}
+
+body {
+	color: #333333;
+	font-family: calibri, Tahoma, Geneva, sans-serif !important;
+}
+
+#header {
+	background-color: coral;
+	color: white;
+	text-align: left;
+	margin: 5px;
+	padding: 5px;
+}
+
+#bg, #page {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+</style>
+</h:head>
+<h:body>
+	<h3></h3>
+	<div id="container">
+		<div id="bg" class="bg"></div>
+		<div id="page">
+
+			<div id="header">
+				<ui:insert name="header">
+					<ui:include src="header.xhtml" />
+				</ui:insert>
+			</div>
+
+			<div id="content" style="width: 100%; height: 450px;">
+				<ui:insert name="content">
+asjdnjkaskjd
+			</ui:insert>
+			</div>
+
+			<div id="footer">
+				<ui:insert name="footer">
+					<ui:include src="footer.xhtml" />
+				</ui:insert>
+			</div>
+
+		</div>
+	</div>
+
+</h:body>
+</html>

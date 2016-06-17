@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Order Confirmation</title>
+</h:head>
+<h:body>
+	<h3></h3>
+	<ui:composition template="defaultLayout.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<div style="width: 100%">					
+					<h:panelGroup layout="block">
+						<p:panel header="Confirm Order">
+							<h:outputText value="Please enter your shipping details"></h:outputText>
+
+							<table style="margin-top: 10px">
+								<tr>
+									<td><p:outputLabel value="Name" for="name"></p:outputLabel></td>
+									<td><p:inputText required="true" id="name" /></td>
+								</tr>
+								<tr>
+									<td><p:outputLabel value="Email" for="email"></p:outputLabel></td>
+									<td><p:inputText required="true" id="email" /></td>
+								</tr>
+								<tr>
+									<td><p:outputLabel value="Phone Number" for="phnumber"></p:outputLabel></td>
+									<td><p:inputText required="true" id="phnumber" /></td>
+								</tr>
+								<tr>
+									<td><p:outputLabel value="Address" for="address"></p:outputLabel></td>
+									<td><p:inputText required="true" id="address" /></td>
+								</tr>
+
+								<tr>
+									<td></td>
+									<td><p:commandButton value="Guest Checkout"
+											action="#{home.guestCheckout}" process="@form"
+											update="@form" /></td>
+								</tr>
+							</table>
+						</p:panel>
+					</h:panelGroup>
+				</div>
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>
